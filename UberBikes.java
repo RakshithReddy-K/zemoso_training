@@ -11,7 +11,7 @@ public class UberBikes extends UberCars{
         this.vehicle_number=vehicle_number;
         this.driver_name=driver_name;
     }
-    public float costofride(float distance_travelled) {
+    public float rideCost(float distance_travelled) {
         return base_price+rate_per_km*distance_travelled;
     }
 

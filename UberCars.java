@@ -20,12 +20,12 @@ public class UberCars implements Travels{
     }
 
     @Override
-    public float costofride(float distance_travelled) {
+    public float rideCost(float distance_travelled) {
         return base_price+rate_per_km*distance_travelled;
     }
 
     @Override
-    public void viewdetails() {
+    public void viewDetails() {
     System.out.println("Driver Name :"+driver_name +"\nVehicle Number :"+vehicle_number);
     }
 }
