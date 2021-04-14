@@ -12,8 +12,10 @@ public class Assignment1 {
     {
         while(true) {
             Scanner scanner = new Scanner(System.in);
-            System.out.println("Enter the expression you wish to match");
+            System.out.println("Enter the expression you wish to match OR Enter q to exit");
             String input = scanner.nextLine();
+            if(input.equals("q"))
+                return;
             Pattern pattern = Pattern.compile(input, Pattern.CASE_INSENSITIVE);//Creating pattern with given input
             printAbsolutePath(homeDirectory, pattern);
         }
