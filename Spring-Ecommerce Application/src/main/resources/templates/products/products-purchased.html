@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>DashBoard</title>
+<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+<link rel="stylesheet" th:href="@{/css/demo.css}"/>
+</head>
+<body>
+<div>
+	<h3 th:inline="text">Welcome [[${#httpServletRequest.remoteUser}]]</h3>
+	<hr>
+	<table class="table table-bordered table-striped">
+	
+		<thead class="thead-dark">
+		
+			<tr>
+				<th>Product Name</th>
+				<th>Price</th>
+			</tr>		
+		
+		</thead>
+		<tbody>
+		
+			<tr th:each="temp : ${products}">
+				<td th:text="${temp.productName}"/>
+				<td th:text="${temp.price}"/>
+			</tr>		
+		</tbody>
+	
+	</table>
+	<a th:href="@{/}">Back to DashBoard</a>
+		
+	<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Logout" />
+</form>
+</div>
+</body>
+</html>

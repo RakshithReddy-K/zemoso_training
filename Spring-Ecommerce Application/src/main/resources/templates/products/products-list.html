@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="ISO-8859-1">
+<title>DashBoard</title>
+<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+<link rel="stylesheet" th:href="@{/css/demo.css}"/>
+</head>
+<body>
+<div>
+	<h3 th:inline="text">Welcome [[${#httpServletRequest.remoteUser}]] </h3>
+	<br>
+	Role(s): <span sec:authentication="principal.authorities"></span>
+
+	<hr>
+	<div sec:authorize="hasRole('ADMIN')">
+		<a th:href="@{showFormForAdd}"
+		class="btn btn-primary btn-sm mb-3">Add Products</a>	
+	</div>
+	<table class="table table-bordered table-striped">
+	
+		<thead class="thead-dark">
+		
+			<tr>
+				<th>Product Name</th>
+				<th>Price</th>
+				<th>Actions</th>
+			</tr>		
+		
+		</thead>
+		<tbody>
+		
+			<tr th:each="temp : ${products}">
+				<td th:text="${temp.name}"/>
+				<td th:text="${temp.price}"/>
+				<td>
+					<div sec:authorize="hasRole('ADMIN')">
+					<a th:href="@{/product/update(productId=${temp.id})}"
+						class="btn btn-info btn-sm">
+					Update	
+					</a>
+					<a th:href="@{/product/delete(productId=${temp.id})}"
+						class="btn btn-danger btn-sm"
+						onclick="if (!(confirm('Are you sure?'))) return false">
+					Delete	
+					</a>
+					</div>
+					<div sec:authorize="hasRole('USER')">
+						<a th:href="@{/orders/buy(productId=${temp.id}, username=${#httpServletRequest.remoteUser})}"
+						   class="btn btn-info btn-sm"
+						onclick="if (!(confirm('Are you sure?'))) return false">
+						BUY
+						</a>
+					</div>
+
+				</td>
+		
+		</tbody>
+	
+	</table>
+	<a th:href="@{/}">Back to DashBoard</a>
+	<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Logout" />
+</form>
+</div>
+</body>
+</html>
